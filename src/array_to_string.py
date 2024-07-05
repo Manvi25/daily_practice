@@ -1,10 +1,9 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import array_join, col, explode, collect_list
+from pyspark.sql.functions import array_join, col, collect_list
 
-# Create a Spark session
-spark = SparkSession.builder.appName("complex_join_example").getOrCreate()
 
-# Sample data for the first DataFrame
+spark = SparkSession.builder.appName("array to string").getOrCreate()
+
 data1 = [
     ("Manvi", "Math", 85),
     ("Manvi", "English", 78),
@@ -14,7 +13,6 @@ data1 = [
     ("Sakshi", "English", 91)
 ]
 
-# Sample data for the second DataFrame
 data2 = [
     ("Math", "Mathematics"),
     ("English", "English Language Arts"),
@@ -40,6 +38,6 @@ result_df = grouped_df.withColumn(
     array_join(col("scores").cast("array<string>"), ", ")
 )
 
-result_df.select("name", "subjects_str", "scores_str").show(truncate=False)
+result_df.select("name", "subjects_str", "scores_str").show()
 
 
